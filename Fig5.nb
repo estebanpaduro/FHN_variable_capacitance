@@ -1,0 +1,1029 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     39361,       1021]
+NotebookOptionsPosition[     38540,       1001]
+NotebookOutlinePosition[     38991,       1018]
+CellTagsIndexPosition[     38948,       1015]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+    "This", " ", "notebook", " ", "is", " ", "used", " ", "to", " ", 
+     "generate", " ", "figure", " ", "5", " ", "in", " ", "the", " ", 
+     "article", "\[IndentingNewLine]", 
+     "\"\<Analysis of Neural Activation in Time-dependent Membrane \
+Capacitance Models\>\"", " ", "by", " ", "\[IndentingNewLine]", "Courdurier", 
+     " ", 
+     RowBox[{"M", "."}]}], " ", ",", " ", 
+    RowBox[{"Medina", " ", 
+     RowBox[{"L", ".", " ", "E", ".", " ", "and"}], " ", "Paduro", " ", 
+     RowBox[{"E", "."}]}]}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"SetDirectory", "[", 
+     RowBox[{"NotebookDirectory", "[", "]"}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"FHN", " ", "Parameters"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"ep", "=", "0.08"}], ";", 
+    RowBox[{"\[Beta]", "=", "0.65"}], ";", 
+    RowBox[{"\[Gamma]", "=", "0.7"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"Look", " ", "for", " ", "equilibrium"}], "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"eqn", "=", 
+     RowBox[{"FindRoot", "[", 
+      RowBox[{
+       RowBox[{"0", "==", 
+        RowBox[{"v", "-", 
+         RowBox[{
+          RowBox[{"v", "^", "3"}], "/", "3"}], "-", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"v", "+", "\[Beta]"}], ")"}], "/", "\[Gamma]"}]}]}], ",", 
+       RowBox[{"{", 
+        RowBox[{"v", ",", 
+         RowBox[{"-", "1"}]}], "}"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"v0", ",", "w0"}], "}"}], "=", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"v", ",", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"v", "+", "\[Beta]"}], ")"}], "/", "\[Gamma]"}]}], "}"}], "/.",
+       "eqn"}]}], ";"}]}]}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{
+  3.9041566281048536`*^9, {3.904156675673607*^9, 3.904156677227667*^9}, {
+   3.90415718156781*^9, 3.9041571817962613`*^9}, {3.9041575367701483`*^9, 
+   3.9041575627212887`*^9}, {3.904157654850972*^9, 3.904157702008526*^9}, {
+   3.9041620412730384`*^9, 3.904162144012695*^9}, {3.9041622342590394`*^9, 
+   3.90416227648479*^9}, {3.90416237263253*^9, 3.9041623847076178`*^9}, {
+   3.9046623531859703`*^9, 3.9046623534529824`*^9}, {3.904664903126735*^9, 
+   3.904664904063896*^9}, {3.9046653521024547`*^9, 3.90466535219632*^9}, {
+   3.905255967446809*^9, 3.9052559679638877`*^9}, {3.905257844140292*^9, 
+   3.905257844453767*^9}, {3.9211647229877353`*^9, 3.9211647278628387`*^9}, {
+   3.921164818508169*^9, 3.92116483588235*^9}, {3.9211655706532745`*^9, 
+   3.9211655707209454`*^9}, {3.921165623603587*^9, 3.921165623667091*^9}, {
+   3.9213405790424566`*^9, 3.9213405850009995`*^9}, {3.9213406774807873`*^9, 
+   3.921340680433282*^9}, {3.9392197596236205`*^9, 3.9392198096753883`*^9}, {
+   3.9392198532464976`*^9, 3.9392199089832764`*^9}, {3.939219945842485*^9, 
+   3.939219945924654*^9}, {3.9392199901517305`*^9, 3.9392199905327797`*^9}, {
+   3.9418913750284667`*^9, 3.9418913752174625`*^9}, {3.9418917043826914`*^9, 
+   3.9418917108041534`*^9}, {3.9418932249852266`*^9, 
+   3.9418932256183896`*^9}, {3.94247889984809*^9, 3.9424789027989826`*^9}, {
+   3.947065998768512*^9, 3.947066013139512*^9}},
+ CellLabel->"In[5]:=",ExpressionUUID->"6add7b26-39a8-4826-b72b-5aaa68dd0471"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"Figure", " ", "A"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"Capacitance", " ", "function"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"T", "=", "100"}], ";", 
+    RowBox[{"C0", "=", "0.5"}], ";", 
+    RowBox[{"C1", "=", "1"}], ";", 
+    RowBox[{"\[Kappa]1", "=", "0.15"}], ";", 
+    RowBox[{"\[Kappa]2", "=", "0.2"}], ";", 
+    RowBox[{"\[Kappa]3", "=", "0.9"}], ";", 
+    RowBox[{"maxtime", "=", "200"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Ct", "[", "t_", "]"}], "=", 
+     RowBox[{"Which", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"t", "<", 
+        RowBox[{"\[Kappa]1", " ", "T"}]}], ",", "C0", ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"t", "<", 
+        RowBox[{"\[Kappa]2", " ", "T"}]}], ",", 
+       RowBox[{"C0", "+", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"Mod", "[", 
+            RowBox[{"t", ",", "T"}], "]"}], "-", 
+           RowBox[{"\[Kappa]1", " ", "T"}]}], ")"}], 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"C1", "-", "C0"}], ")"}], "/", 
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"\[Kappa]2", " ", "T"}], "-", " ", 
+            RowBox[{"\[Kappa]1", " ", "T"}]}], ")"}]}]}]}], ",", " ", 
+       "\[IndentingNewLine]", 
+       RowBox[{"t", "<", 
+        RowBox[{"\[Kappa]3", " ", "T"}]}], ",", "C1", ",", " ", 
+       "\[IndentingNewLine]", "True", ",", "C1"}], "\[IndentingNewLine]", 
+      "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Ctd", "[", "t_", "]"}], "=", 
+     RowBox[{"Which", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"t", "<", 
+        RowBox[{"\[Kappa]1", " ", "T"}]}], ",", "0", ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"t", "<", 
+        RowBox[{"\[Kappa]2", " ", "T"}]}], ",", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"C1", "-", "C0"}], ")"}], "/", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"\[Kappa]2", " ", "T"}], "-", " ", 
+          RowBox[{"\[Kappa]1", " ", "T"}]}], ")"}]}], ",", " ", 
+       "\[IndentingNewLine]", 
+       RowBox[{"t", "<", 
+        RowBox[{"\[Kappa]3", " ", "T"}]}], ",", "0", ",", " ", 
+       "\[IndentingNewLine]", "True", ",", "0"}], "\[IndentingNewLine]", 
+      "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"(*", "Simulation", "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"V", ",", "W"}], "}"}], "=", 
+     RowBox[{"NDSolveValue", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{"Ct", "[", "t", "]"}], " ", 
+            RowBox[{
+             RowBox[{"v", "'"}], "[", "t", "]"}]}], "+", 
+           RowBox[{
+            RowBox[{"v", "[", "t", "]"}], " ", 
+            RowBox[{"Ctd", "[", "t", "]"}]}]}], " ", "==", 
+          RowBox[{
+           RowBox[{"v", "[", "t", "]"}], "-", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"v", "[", "t", "]"}], "^", "3"}], "/", "3"}], "-", 
+           RowBox[{"w", "[", "t", "]"}]}]}], ",", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"w", "'"}], "[", "t", "]"}], "==", 
+          RowBox[{"ep", 
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"v", "[", "t", "]"}], "-", 
+             RowBox[{"\[Gamma]", " ", 
+              RowBox[{"w", "[", "t", "]"}]}], " ", "+", " ", "\[Beta]"}], 
+            ")"}]}]}], ",", 
+         RowBox[{
+          RowBox[{"v", "[", "0", "]"}], "==", "v0"}], ",", 
+         RowBox[{
+          RowBox[{"w", "[", "0", "]"}], "==", "w0"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"v", ",", "w"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"t", ",", "0", ",", "maxtime"}], "}"}], ",", 
+       RowBox[{"MaxStepSize", "->", 
+        RowBox[{"0.01", 
+         RowBox[{"Min", "[", 
+          RowBox[{
+           RowBox[{"\[Kappa]2", "-", "\[Kappa]1"}], ",", 
+           RowBox[{"1", "-", "\[Kappa]3"}]}], "]"}], "T"}]}]}], "]"}]}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+     RowBox[{"Voltage", "/", "capacitance"}], " ", "plot"}], "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"voltage", "=", 
+     RowBox[{"Plot", "[", 
+      RowBox[{
+       RowBox[{"V", "[", "t", "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"t", ",", "0", ",", "maxtime"}], "}"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"PlotRange", "->", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", "2.5"}], ",", "2.5"}], "}"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"TicksStyle", "->", 
+        RowBox[{"Directive", "[", 
+         RowBox[{"FontSize", "->", "16"}], "]"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Frame", "->", "True"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"FrameLabel", "->", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"\"\<Voltage\>\"", ",", "\"\<Capacitance\>\""}], "}"}], 
+          ",", 
+          RowBox[{"{", 
+           RowBox[{"\"\<time\>\"", ",", "None"}], "}"}]}], "}"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"LabelStyle", "\[Rule]", 
+        RowBox[{"Directive", "[", 
+         RowBox[{"Black", ",", 
+          RowBox[{"FontSize", "->", "16"}]}], "]"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"FrameTicks", "->", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"All", ",", "All"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"All", ",", "None"}], "}"}]}], "}"}]}]}], 
+      "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"capacitance", "=", 
+     RowBox[{"Plot", "[", 
+      RowBox[{
+       RowBox[{"Ct", "[", "t", "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"t", ",", "0", ",", "maxtime"}], "}"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"PlotPoints", "->", "10000"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"MaxRecursion", "->", "3"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"PlotStyle", "->", "Orange"}]}], "\[IndentingNewLine]", 
+      "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"g1", "=", 
+    RowBox[{"Legended", "[", 
+     RowBox[{
+      RowBox[{"Show", "[", 
+       RowBox[{"voltage", ",", " ", "capacitance", ",", 
+        RowBox[{"AspectRatio", "->", "1"}]}], "]"}], ",", 
+      RowBox[{"Placed", "[", 
+       RowBox[{
+        RowBox[{"LineLegend", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"ColorData", "[", 
+              RowBox[{"97", ",", "\"\<ColorList\>\""}], "]"}], "[", 
+             RowBox[{"[", "1", "]"}], "]"}], ",", "Orange"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"Style", "[", 
+             RowBox[{"\"\<Voltage\>\"", ",", 
+              RowBox[{"FontSize", "->", "18"}]}], "]"}], ",", 
+            RowBox[{"Style", "[", 
+             RowBox[{"\"\<Capacitance\>\"", ",", 
+              RowBox[{"FontSize", "->", "18"}]}], "]"}]}], "}"}], ",", 
+          RowBox[{"LegendLayout", "\[Rule]", "\"\<Row\>\""}]}], "]"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"{", 
+          RowBox[{"0.5", ",", "0.93"}], "}"}], "}"}]}], "]"}]}], "]"}]}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"Export", "[", 
+    RowBox[{"\"\<Fig5a.eps\>\"", ",", "g1"}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.9046590429531374`*^9, 3.904659055468788*^9}, 
+   3.9046590954624987`*^9, {3.9046591500618753`*^9, 3.9046591518650227`*^9}, {
+   3.9046607619549603`*^9, 3.904660764649745*^9}, {3.904660863312126*^9, 
+   3.9046608668924713`*^9}, {3.904660914496625*^9, 3.9046610591128826`*^9}, {
+   3.9052556878832397`*^9, 3.9052556918546886`*^9}, {3.905255757690468*^9, 
+   3.905255786731265*^9}, {3.9052558251745777`*^9, 3.9052558687138033`*^9}, {
+   3.9052559157699995`*^9, 3.90525593325875*^9}, {3.9052560188971677`*^9, 
+   3.9052560195609903`*^9}, {3.905256080118847*^9, 3.9052560829857235`*^9}, {
+   3.9052561191791315`*^9, 3.9052561202490396`*^9}, {3.9052561529145203`*^9, 
+   3.905256158083002*^9}, {3.9211655884344406`*^9, 3.9211655888832607`*^9}, {
+   3.921165646229005*^9, 3.921165727408249*^9}, {3.921165804285595*^9, 
+   3.9211658211911387`*^9}, {3.921340636457828*^9, 3.9213406605645237`*^9}, {
+   3.9213408407616234`*^9, 3.921340844232179*^9}, 3.9392200081522036`*^9, {
+   3.9392201381541843`*^9, 3.939220138417281*^9}, 3.9392219260794277`*^9, 
+   3.9418913740785217`*^9, {3.941891712247619*^9, 3.9418917239061756`*^9}, {
+   3.9418917569027753`*^9, 3.941891814067747*^9}, {3.941893049207444*^9, 
+   3.94189306667634*^9}, 3.941893135389694*^9, {3.9418932379698095`*^9, 
+   3.941893246050639*^9}, {3.9418933207538967`*^9, 3.941893320849806*^9}, 
+   3.9418934141267147`*^9, 3.9424789042414875`*^9, {3.9424790020234747`*^9, 
+   3.942479028137699*^9}, {3.9424791268644156`*^9, 3.942479143839109*^9}, {
+   3.9424792532040577`*^9, 3.942479289158383*^9}, {3.942479326538212*^9, 
+   3.9424793314076295`*^9}, {3.9424794940190525`*^9, 3.942479544309718*^9}, {
+   3.943351918493927*^9, 3.9433519185499287`*^9}, 3.9458727075736303`*^9, {
+   3.945872779142161*^9, 3.945872788779377*^9}, {3.9470660226221423`*^9, 
+   3.9470660408899374`*^9}, {3.947066115744416*^9, 3.947066147751074*^9}},
+ CellLabel->"In[9]:=",ExpressionUUID->"07af5e8e-96a4-473a-b3d1-69c41bf3dae2"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"Figure", " ", "B"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"Capacitance", " ", "function"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"T", "=", "100"}], ";", 
+    RowBox[{"C0", "=", "1"}], ";", 
+    RowBox[{"C1", "=", "0.5"}], ";", 
+    RowBox[{"\[Kappa]1", "=", "0.1"}], ";", 
+    RowBox[{"\[Kappa]2", "=", "0.2"}], ";", 
+    RowBox[{"\[Kappa]3", "=", "0.9"}], ";", 
+    RowBox[{"maxtime", "=", "200"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Ct", "[", "t_", "]"}], "=", 
+     RowBox[{"Which", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"t", "<", 
+        RowBox[{"\[Kappa]1", " ", "T"}]}], ",", "C0", ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"t", "<", 
+        RowBox[{"\[Kappa]2", " ", "T"}]}], ",", 
+       RowBox[{"C0", "+", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"Mod", "[", 
+            RowBox[{"t", ",", "T"}], "]"}], "-", 
+           RowBox[{"\[Kappa]1", " ", "T"}]}], ")"}], 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"C1", "-", "C0"}], ")"}], "/", 
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"\[Kappa]2", " ", "T"}], "-", " ", 
+            RowBox[{"\[Kappa]1", " ", "T"}]}], ")"}]}]}]}], ",", " ", 
+       "\[IndentingNewLine]", 
+       RowBox[{"t", "<", 
+        RowBox[{"\[Kappa]3", " ", "T"}]}], ",", "C1", ",", " ", 
+       "\[IndentingNewLine]", "True", ",", "C1"}], "\[IndentingNewLine]", 
+      "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Ctd", "[", "t_", "]"}], "=", 
+     RowBox[{"Which", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"t", "<", 
+        RowBox[{"\[Kappa]1", " ", "T"}]}], ",", "0", ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"t", "<", 
+        RowBox[{"\[Kappa]2", " ", "T"}]}], ",", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"C1", "-", "C0"}], ")"}], "/", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"\[Kappa]2", " ", "T"}], "-", " ", 
+          RowBox[{"\[Kappa]1", " ", "T"}]}], ")"}]}], ",", " ", 
+       "\[IndentingNewLine]", 
+       RowBox[{"t", "<", 
+        RowBox[{"\[Kappa]3", " ", "T"}]}], ",", "0", ",", " ", 
+       "\[IndentingNewLine]", "True", ",", "0"}], "\[IndentingNewLine]", 
+      "]"}]}], ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"V", ",", "W"}], "}"}], "=", 
+     RowBox[{"NDSolveValue", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{"Ct", "[", "t", "]"}], " ", 
+            RowBox[{
+             RowBox[{"v", "'"}], "[", "t", "]"}]}], "+", 
+           RowBox[{
+            RowBox[{"v", "[", "t", "]"}], " ", 
+            RowBox[{"Ctd", "[", "t", "]"}]}]}], " ", "==", 
+          RowBox[{
+           RowBox[{"v", "[", "t", "]"}], "-", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"v", "[", "t", "]"}], "^", "3"}], "/", "3"}], "-", 
+           RowBox[{"w", "[", "t", "]"}]}]}], ",", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"w", "'"}], "[", "t", "]"}], "==", 
+          RowBox[{"ep", 
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"v", "[", "t", "]"}], "-", 
+             RowBox[{"\[Gamma]", " ", 
+              RowBox[{"w", "[", "t", "]"}]}], " ", "+", " ", "\[Beta]"}], 
+            ")"}]}]}], ",", 
+         RowBox[{
+          RowBox[{"v", "[", "0", "]"}], "==", "v0"}], ",", 
+         RowBox[{
+          RowBox[{"w", "[", "0", "]"}], "==", "w0"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"v", ",", "w"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"t", ",", "0", ",", "maxtime"}], "}"}], ",", 
+       RowBox[{"MaxStepSize", "->", 
+        RowBox[{"0.01", 
+         RowBox[{"Min", "[", 
+          RowBox[{
+           RowBox[{"\[Kappa]2", "-", "\[Kappa]1"}], ",", 
+           RowBox[{"1", "-", "\[Kappa]3"}]}], "]"}], "T"}]}]}], "]"}]}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+     RowBox[{"Voltage", "/", "capacitance"}], " ", "plot"}], "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"voltage", "=", 
+     RowBox[{"Plot", "[", 
+      RowBox[{
+       RowBox[{"V", "[", "t", "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"t", ",", "0", ",", "maxtime"}], "}"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"PlotRange", "->", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", "2.5"}], ",", "2.5"}], "}"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"TicksStyle", "->", 
+        RowBox[{"Directive", "[", 
+         RowBox[{"FontSize", "->", "16"}], "]"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Frame", "->", "True"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"FrameLabel", "->", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"\"\<Voltage\>\"", ",", "\"\<Capacitance\>\""}], "}"}], 
+          ",", 
+          RowBox[{"{", 
+           RowBox[{"\"\<time\>\"", ",", "None"}], "}"}]}], "}"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"LabelStyle", "\[Rule]", 
+        RowBox[{"Directive", "[", 
+         RowBox[{"Black", ",", 
+          RowBox[{"FontSize", "->", "16"}]}], "]"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"FrameTicks", "->", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"All", ",", "All"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"All", ",", "None"}], "}"}]}], "}"}]}]}], 
+      "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"capacitance", "=", 
+     RowBox[{"Plot", "[", 
+      RowBox[{
+       RowBox[{"Ct", "[", "t", "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"t", ",", "0", ",", "maxtime"}], "}"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"PlotPoints", "->", "10000"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"MaxRecursion", "->", "3"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"PlotStyle", "->", "Orange"}]}], "\[IndentingNewLine]", 
+      "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"g1", "=", 
+    RowBox[{"Legended", "[", 
+     RowBox[{
+      RowBox[{"Show", "[", 
+       RowBox[{"voltage", ",", " ", "capacitance", ",", 
+        RowBox[{"AspectRatio", "->", "1"}]}], "]"}], ",", 
+      RowBox[{"Placed", "[", 
+       RowBox[{
+        RowBox[{"LineLegend", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"ColorData", "[", 
+              RowBox[{"97", ",", "\"\<ColorList\>\""}], "]"}], "[", 
+             RowBox[{"[", "1", "]"}], "]"}], ",", "Orange"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"Style", "[", 
+             RowBox[{"\"\<Voltage\>\"", ",", 
+              RowBox[{"FontSize", "->", "18"}]}], "]"}], ",", 
+            RowBox[{"Style", "[", 
+             RowBox[{"\"\<Capacitance\>\"", ",", 
+              RowBox[{"FontSize", "->", "18"}]}], "]"}]}], "}"}], ",", 
+          RowBox[{"LegendLayout", "\[Rule]", "\"\<Row\>\""}]}], "]"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"{", 
+          RowBox[{"0.5", ",", "0.93"}], "}"}], "}"}]}], "]"}]}], "]"}]}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"Export", "[", 
+    RowBox[{"\"\<Fig5b.eps\>\"", ",", "g1"}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.9418933101218987`*^9, 3.941893330114803*^9}, {
+   3.941893403040701*^9, 3.9418934098317113`*^9}, 3.941893507862405*^9, 
+   3.9424789074210796`*^9, {3.9424791513522778`*^9, 3.942479186536992*^9}, {
+   3.9424792578852825`*^9, 3.9424792579927473`*^9}, 3.9424795526567836`*^9, 
+   3.9433519148992047`*^9, 3.9458727047485514`*^9, {3.9458728054498153`*^9, 
+   3.9458728161910973`*^9}, 3.9470660456226263`*^9, {3.9470661572215385`*^9, 
+   3.9470661789108653`*^9}},
+ CellLabel->"In[17]:=",ExpressionUUID->"cdafc4aa-0494-4e5e-88a9-5b6f6a6a1074"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"Figure", " ", "C"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"T", "=", "100"}], ";", 
+    RowBox[{"C0", "=", "0.5"}], ";", 
+    RowBox[{"C1", "=", "1"}], ";", 
+    RowBox[{"\[Kappa]1", "=", "0.15"}], ";", 
+    RowBox[{"\[Kappa]2", "=", "0.2"}], ";", 
+    RowBox[{"\[Kappa]3", "=", "0.8"}], ";", 
+    RowBox[{"maxtime", "=", "200"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Ct", "[", "t_", "]"}], "=", 
+     RowBox[{"Which", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Mod", "[", 
+         RowBox[{"t", ",", "T"}], "]"}], "<", 
+        RowBox[{"\[Kappa]1", " ", "T"}]}], ",", "C0", ",", 
+       RowBox[{
+        RowBox[{"Mod", "[", 
+         RowBox[{"t", ",", "T"}], "]"}], "<", 
+        RowBox[{"\[Kappa]2", " ", "T"}]}], ",", 
+       RowBox[{"C0", "+", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"Mod", "[", 
+            RowBox[{"t", ",", "T"}], "]"}], "-", 
+           RowBox[{"\[Kappa]1", " ", "T"}]}], ")"}], 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"C1", "-", "C0"}], ")"}], "/", 
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"\[Kappa]2", " ", "T"}], "-", " ", 
+            RowBox[{"\[Kappa]1", " ", "T"}]}], ")"}]}]}]}], ",", " ", 
+       RowBox[{
+        RowBox[{"Mod", "[", 
+         RowBox[{"t", ",", "T"}], "]"}], "<", 
+        RowBox[{"\[Kappa]3", " ", "T"}]}], ",", "C1", ",", " ", "True", ",", 
+       RowBox[{"C1", "+", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"Mod", "[", 
+            RowBox[{"t", ",", "T"}], "]"}], "-", 
+           RowBox[{"\[Kappa]3", " ", "T"}]}], ")"}], 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"C0", "-", "C1"}], ")"}], "/", 
+          RowBox[{"(", 
+           RowBox[{"T", "-", " ", 
+            RowBox[{"\[Kappa]3", " ", "T"}]}], ")"}]}]}]}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Ctd", "[", "t_", "]"}], "=", 
+     RowBox[{"Which", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Mod", "[", 
+         RowBox[{"t", ",", "T"}], "]"}], "<", 
+        RowBox[{"\[Kappa]1", " ", "T"}]}], ",", "0", ",", 
+       RowBox[{
+        RowBox[{"Mod", "[", 
+         RowBox[{"t", ",", "T"}], "]"}], "<", 
+        RowBox[{"\[Kappa]2", " ", "T"}]}], ",", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"C1", "-", "C0"}], ")"}], "/", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"\[Kappa]2", " ", "T"}], "-", " ", 
+          RowBox[{"\[Kappa]1", " ", "T"}]}], ")"}]}], ",", " ", 
+       RowBox[{
+        RowBox[{"Mod", "[", 
+         RowBox[{"t", ",", "T"}], "]"}], "<", 
+        RowBox[{"\[Kappa]3", " ", "T"}]}], ",", "0", ",", " ", "True", ",", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"C0", "-", "C1"}], ")"}], "/", 
+        RowBox[{"(", 
+         RowBox[{"T", "-", " ", 
+          RowBox[{"\[Kappa]3", " ", "T"}]}], ")"}]}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"V", ",", "W"}], "}"}], "=", 
+     RowBox[{"NDSolveValue", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{"Ct", "[", "t", "]"}], " ", 
+            RowBox[{
+             RowBox[{"v", "'"}], "[", "t", "]"}]}], "+", 
+           RowBox[{
+            RowBox[{"v", "[", "t", "]"}], " ", 
+            RowBox[{"Ctd", "[", "t", "]"}]}]}], " ", "==", 
+          RowBox[{
+           RowBox[{"v", "[", "t", "]"}], "-", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"v", "[", "t", "]"}], "^", "3"}], "/", "3"}], "-", 
+           RowBox[{"w", "[", "t", "]"}]}]}], ",", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"w", "'"}], "[", "t", "]"}], "==", 
+          RowBox[{"ep", 
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"v", "[", "t", "]"}], "-", 
+             RowBox[{"\[Gamma]", " ", 
+              RowBox[{"w", "[", "t", "]"}]}], " ", "+", " ", "\[Beta]"}], 
+            ")"}]}]}], ",", 
+         RowBox[{
+          RowBox[{"v", "[", "0", "]"}], "==", "v0"}], ",", 
+         RowBox[{
+          RowBox[{"w", "[", "0", "]"}], "==", "w0"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"v", ",", "w"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"t", ",", "0", ",", "maxtime"}], "}"}], ",", 
+       RowBox[{"MaxStepSize", "->", 
+        RowBox[{"0.01", 
+         RowBox[{"Min", "[", 
+          RowBox[{
+           RowBox[{"\[Kappa]2", "-", "\[Kappa]1"}], ",", 
+           RowBox[{"1", "-", "\[Kappa]3"}]}], "]"}], "T"}]}]}], "]"}]}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+     RowBox[{"Voltage", "/", "capacitance"}], " ", "plot"}], "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"voltage", "=", 
+     RowBox[{"Plot", "[", 
+      RowBox[{
+       RowBox[{"V", "[", "t", "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"t", ",", "0", ",", "maxtime"}], "}"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"PlotRange", "->", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", "2.5"}], ",", "2.5"}], "}"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"TicksStyle", "->", 
+        RowBox[{"Directive", "[", 
+         RowBox[{"FontSize", "->", "16"}], "]"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Frame", "->", "True"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"FrameLabel", "->", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"\"\<Voltage\>\"", ",", "\"\<Capacitance\>\""}], "}"}], 
+          ",", 
+          RowBox[{"{", 
+           RowBox[{"\"\<time\>\"", ",", "None"}], "}"}]}], "}"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"LabelStyle", "\[Rule]", 
+        RowBox[{"Directive", "[", 
+         RowBox[{"Black", ",", 
+          RowBox[{"FontSize", "->", "16"}]}], "]"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"FrameTicks", "->", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"All", ",", "All"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"All", ",", "None"}], "}"}]}], "}"}]}]}], 
+      "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"capacitance", "=", 
+     RowBox[{"Plot", "[", 
+      RowBox[{
+       RowBox[{"Ct", "[", "t", "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"t", ",", "0", ",", "maxtime"}], "}"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"PlotPoints", "->", "10000"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"MaxRecursion", "->", "3"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"PlotStyle", "->", "Orange"}]}], "\[IndentingNewLine]", 
+      "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"g1", "=", 
+    RowBox[{"Legended", "[", 
+     RowBox[{
+      RowBox[{"Show", "[", 
+       RowBox[{"voltage", ",", " ", "capacitance", ",", 
+        RowBox[{"AspectRatio", "->", "1"}]}], "]"}], ",", 
+      RowBox[{"Placed", "[", 
+       RowBox[{
+        RowBox[{"LineLegend", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"ColorData", "[", 
+              RowBox[{"97", ",", "\"\<ColorList\>\""}], "]"}], "[", 
+             RowBox[{"[", "1", "]"}], "]"}], ",", "Orange"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"Style", "[", 
+             RowBox[{"\"\<Voltage\>\"", ",", 
+              RowBox[{"FontSize", "->", "18"}]}], "]"}], ",", 
+            RowBox[{"Style", "[", 
+             RowBox[{"\"\<Capacitance\>\"", ",", 
+              RowBox[{"FontSize", "->", "18"}]}], "]"}]}], "}"}], ",", 
+          RowBox[{"LegendLayout", "\[Rule]", "\"\<Row\>\""}]}], "]"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"{", 
+          RowBox[{"0.5", ",", "0.93"}], "}"}], "}"}]}], "]"}]}], "]"}]}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"Export", "[", 
+    RowBox[{"\"\<Fig5c.eps\>\"", ",", "g1"}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.941893441456444*^9, 3.941893445415477*^9}, 
+   3.9418935161600018`*^9, {3.941893822466502*^9, 3.941893829445238*^9}, {
+   3.9424792617761145`*^9, 3.942479261883992*^9}, 3.9424795585310802`*^9, 
+   3.943351911316348*^9, 3.9458727025427094`*^9, 3.9458728218943167`*^9, 
+   3.947066047665326*^9, {3.947066715805863*^9, 3.947066772494828*^9}},
+ CellLabel->"In[25]:=",ExpressionUUID->"7047b323-1e6b-4c32-9f6d-3916280937e7"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"Figure", " ", "D"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"maxtime", "=", "200"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"T", "=", "50"}], ";", 
+    RowBox[{"C0", "=", "0.5"}], ";", 
+    RowBox[{"C1", "=", "1"}], ";", 
+    RowBox[{"\[Kappa]1", "=", "0.1"}], ";", 
+    RowBox[{"\[Kappa]2", "=", "0.2"}], ";", 
+    RowBox[{"\[Kappa]3", "=", "0.8"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Ct", "[", "t_", "]"}], "=", 
+     RowBox[{"Which", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Mod", "[", 
+         RowBox[{"t", ",", "T"}], "]"}], "<", 
+        RowBox[{"\[Kappa]1", " ", "T"}]}], ",", "C0", ",", 
+       RowBox[{
+        RowBox[{"Mod", "[", 
+         RowBox[{"t", ",", "T"}], "]"}], "<", 
+        RowBox[{"\[Kappa]2", " ", "T"}]}], ",", 
+       RowBox[{"C0", "+", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"Mod", "[", 
+            RowBox[{"t", ",", "T"}], "]"}], "-", 
+           RowBox[{"\[Kappa]1", " ", "T"}]}], ")"}], 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"C1", "-", "C0"}], ")"}], "/", 
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"\[Kappa]2", " ", "T"}], "-", " ", 
+            RowBox[{"\[Kappa]1", " ", "T"}]}], ")"}]}]}]}], ",", " ", 
+       RowBox[{
+        RowBox[{"Mod", "[", 
+         RowBox[{"t", ",", "T"}], "]"}], "<", 
+        RowBox[{"\[Kappa]3", " ", "T"}]}], ",", "C1", ",", " ", "True", ",", 
+       RowBox[{"C1", "+", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"Mod", "[", 
+            RowBox[{"t", ",", "T"}], "]"}], "-", 
+           RowBox[{"\[Kappa]3", " ", "T"}]}], ")"}], 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"C0", "-", "C1"}], ")"}], "/", 
+          RowBox[{"(", 
+           RowBox[{"T", "-", " ", 
+            RowBox[{"\[Kappa]3", " ", "T"}]}], ")"}]}]}]}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Ctd", "[", "t_", "]"}], "=", 
+     RowBox[{"Which", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Mod", "[", 
+         RowBox[{"t", ",", "T"}], "]"}], "<", 
+        RowBox[{"\[Kappa]1", " ", "T"}]}], ",", "0", ",", 
+       RowBox[{
+        RowBox[{"Mod", "[", 
+         RowBox[{"t", ",", "T"}], "]"}], "<", 
+        RowBox[{"\[Kappa]2", " ", "T"}]}], ",", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"C1", "-", "C0"}], ")"}], "/", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"\[Kappa]2", " ", "T"}], "-", " ", 
+          RowBox[{"\[Kappa]1", " ", "T"}]}], ")"}]}], ",", " ", 
+       RowBox[{
+        RowBox[{"Mod", "[", 
+         RowBox[{"t", ",", "T"}], "]"}], "<", 
+        RowBox[{"\[Kappa]3", " ", "T"}]}], ",", "0", ",", " ", "True", ",", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"C0", "-", "C1"}], ")"}], "/", 
+        RowBox[{"(", 
+         RowBox[{"T", "-", " ", 
+          RowBox[{"\[Kappa]3", " ", "T"}]}], ")"}]}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"V", ",", "W"}], "}"}], "=", 
+     RowBox[{"NDSolveValue", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{"Ct", "[", "t", "]"}], " ", 
+            RowBox[{
+             RowBox[{"v", "'"}], "[", "t", "]"}]}], "+", 
+           RowBox[{
+            RowBox[{"v", "[", "t", "]"}], " ", 
+            RowBox[{"Ctd", "[", "t", "]"}]}]}], " ", "==", 
+          RowBox[{
+           RowBox[{"v", "[", "t", "]"}], "-", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"v", "[", "t", "]"}], "^", "3"}], "/", "3"}], "-", 
+           RowBox[{"w", "[", "t", "]"}]}]}], ",", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"w", "'"}], "[", "t", "]"}], "==", 
+          RowBox[{"ep", 
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"v", "[", "t", "]"}], "-", 
+             RowBox[{"\[Gamma]", " ", 
+              RowBox[{"w", "[", "t", "]"}]}], " ", "+", " ", "\[Beta]"}], 
+            ")"}]}]}], ",", 
+         RowBox[{
+          RowBox[{"v", "[", "0", "]"}], "==", "v0"}], ",", 
+         RowBox[{
+          RowBox[{"w", "[", "0", "]"}], "==", "w0"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"v", ",", "w"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"t", ",", "0", ",", "maxtime"}], "}"}], ",", 
+       RowBox[{"MaxStepSize", "->", 
+        RowBox[{"0.1", 
+         RowBox[{"Min", "[", 
+          RowBox[{
+           RowBox[{"\[Kappa]2", "-", "\[Kappa]1"}], ",", 
+           RowBox[{"1", "-", "\[Kappa]3"}]}], "]"}], "T"}]}]}], "]"}]}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+     RowBox[{"Voltage", "/", "capacitance"}], " ", "plot"}], "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"voltage", "=", 
+     RowBox[{"Plot", "[", 
+      RowBox[{
+       RowBox[{"V", "[", "t", "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"t", ",", "0", ",", "maxtime"}], "}"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"PlotRange", "->", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", "2.5"}], ",", "2.5"}], "}"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"TicksStyle", "->", 
+        RowBox[{"Directive", "[", 
+         RowBox[{"FontSize", "->", "16"}], "]"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Frame", "->", "True"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"FrameLabel", "->", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"\"\<Voltage\>\"", ",", "\"\<Capacitance\>\""}], "}"}], 
+          ",", 
+          RowBox[{"{", 
+           RowBox[{"\"\<time\>\"", ",", "None"}], "}"}]}], "}"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"LabelStyle", "\[Rule]", 
+        RowBox[{"Directive", "[", 
+         RowBox[{"Black", ",", 
+          RowBox[{"FontSize", "->", "16"}]}], "]"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"FrameTicks", "->", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"All", ",", "All"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"All", ",", "None"}], "}"}]}], "}"}]}]}], 
+      "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"capacitance", "=", 
+     RowBox[{"Plot", "[", 
+      RowBox[{
+       RowBox[{"Ct", "[", "t", "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"t", ",", "0", ",", "maxtime"}], "}"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"PlotPoints", "->", "10000"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"MaxRecursion", "->", "3"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"PlotStyle", "->", "Orange"}]}], "\[IndentingNewLine]", 
+      "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"g1", "=", 
+    RowBox[{"Legended", "[", 
+     RowBox[{
+      RowBox[{"Show", "[", 
+       RowBox[{"voltage", ",", " ", "capacitance", ",", 
+        RowBox[{"AspectRatio", "->", "1"}]}], "]"}], ",", 
+      RowBox[{"Placed", "[", 
+       RowBox[{
+        RowBox[{"LineLegend", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"ColorData", "[", 
+              RowBox[{"97", ",", "\"\<ColorList\>\""}], "]"}], "[", 
+             RowBox[{"[", "1", "]"}], "]"}], ",", "Orange"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"Style", "[", 
+             RowBox[{"\"\<Voltage\>\"", ",", 
+              RowBox[{"FontSize", "->", "18"}]}], "]"}], ",", 
+            RowBox[{"Style", "[", 
+             RowBox[{"\"\<Capacitance\>\"", ",", 
+              RowBox[{"FontSize", "->", "18"}]}], "]"}]}], "}"}], ",", 
+          RowBox[{"LegendLayout", "\[Rule]", "\"\<Row\>\""}]}], "]"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"{", 
+          RowBox[{"0.5", ",", "0.93"}], "}"}], "}"}]}], "]"}]}], "]"}]}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"Export", "[", 
+    RowBox[{"\"\<Fig5d.eps\>\"", ",", "g1"}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.9418934808684444`*^9, 3.9418934864502707`*^9}, 
+   3.9418935205146084`*^9, {3.9418936168974476`*^9, 3.9418936172995577`*^9}, {
+   3.9424792652324142`*^9, 3.942479265323654*^9}, 3.942479562179245*^9, {
+   3.9433519074687624`*^9, 3.94335190758377*^9}, {3.9458726965477867`*^9, 
+   3.945872697053046*^9}, 3.945872825362828*^9, 3.947066049842591*^9, {
+   3.9470667784684587`*^9, 3.94706680336386*^9}, {3.947066878879095*^9, 
+   3.947066908357544*^9}},
+ CellLabel->"In[87]:=",ExpressionUUID->"46dd047b-7fb0-411a-aa01-c5b97744eb2b"]
+},
+WindowSize->{1141.2, 568.8},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+TaggingRules->Association["TryRealOnly" -> False],
+FrontEndVersion->"12.3 for Microsoft Windows (64-bit) (July 9, 2021)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"2afc118e-1ede-4010-831b-6894c0568252"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 3404, 75, 197, "Input",ExpressionUUID->"6add7b26-39a8-4826-b72b-5aaa68dd0471",
+ InitializationCell->True],
+Cell[3965, 97, 9433, 227, 695, "Input",ExpressionUUID->"07af5e8e-96a4-473a-b3d1-69c41bf3dae2"],
+Cell[13401, 326, 7981, 208, 695, "Input",ExpressionUUID->"cdafc4aa-0494-4e5e-88a9-5b6f6a6a1074"],
+Cell[21385, 536, 8503, 229, 504, "Input",ExpressionUUID->"7047b323-1e6b-4c32-9f6d-3916280937e7"],
+Cell[29891, 767, 8645, 232, 523, "Input",ExpressionUUID->"46dd047b-7fb0-411a-aa01-c5b97744eb2b"]
+}
+]
+*)
+
